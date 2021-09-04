@@ -43,6 +43,11 @@ in
   # changes in each release.
   home.stateVersion = "21.11";
 
+  home.keyboard = {
+    layout = "us";
+    variant = "colemak";
+  };
+
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
@@ -50,17 +55,28 @@ in
     nixpkgs-fmt
     powerline-fonts
     fira-code
-    go
-    python3
-    nodejs
-    tmux
-    overmind
+    nixUnstable
     git-crypt
     git-lfs
+    nix-direnv
   ] ++ [
-    # slack
+    slack
     spotify
   ];
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv = {
+      enable = true;
+      enableFlakes = true;
+    };
+  };
+
+  home.file = {
+    ".config/nix/nix.conf".text = "experimental-features = nix-command flakes";
+    ".ssh/id_rsa".source = .secrets/id_rsa;
+    ".ssh/id_rsa.pub".source = .secrets/id_rsa.pub;
+  };
 
   programs.zsh = with pkgs;
     {
@@ -78,6 +94,10 @@ in
       enableCompletion = true;
 
       shellAliases = {
+        xbc = "code ~/work/praetor/praetor.code-workspace";
+        xbp = "cd ~/work/praetor && ./run.sh";
+        xbd = "cd ~/work/praetor && ./clearDatabases.sh";
+        hu = "~/nixfiles/update.sh";
         cat = "${bat}/bin/bat";
         e = "\${EDITOR:-nvim}";
         ll = "ls -la";
@@ -90,6 +110,8 @@ in
         zsh_theme_enable = "prompt_powerlevel9k_teardown";
         zsh_theme_disable = "prompt_powerlevel9k_setup";
       };
+
+      initExtra = ''DIRENV_LOG_FORMAT=""'';
 
       history = {
         expireDuplicatesFirst = true;
