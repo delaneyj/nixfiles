@@ -2,4 +2,4 @@
 
 scriptDir=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
 
-ln -s "$scriptDir/nixpkgs" "$HOME/.config/nixpkgs"
+ln -sf  "$scriptDir" "$HOME/.config/nixpkgs"

@@ -50,10 +50,16 @@ in
     nixpkgs-fmt
     powerline-fonts
     fira-code
-    spotify
     go
     python3
     nodejs
+    tmux
+    overmind
+    git-crypt
+    git-lfs
+  ] ++ [
+    # slack
+    spotify
   ];
 
   programs.zsh = with pkgs;
@@ -99,8 +105,11 @@ in
           "git"
           "history"
           "sudo"
+          "golang"
+          "timer"
         ];
       };
+
 
       plugins = [
         {
