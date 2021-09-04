@@ -3,7 +3,7 @@
 let
   username = "delaney";
   fullName = "Delaney Gillilan";
-  email = "delaney.gillilan@twosixtech.com";
+  email = "delaneygillilan@gmail.com";
 
   update-icons = pkgs.writeScriptBin "update-icons" ''
     #!${pkgs.bash}/bin/bash
